@@ -7,10 +7,11 @@ library(tidyverse)
 library(rtweet)
 library(raster)
 library(rgdal)
-
+source('R/credentials.R')
 # Functions ---------------------------------------------------------------
 
-tag='rstatsdc'
+tag='rstatsnyc'
+date_min="2020-08-10"
 
 get_tweets.fun<-function(tag){
   
@@ -21,11 +22,15 @@ get_tweets.fun<-function(tag){
   
   seed.num=1234
   # Set API Keys
-  api_key <- ""
-  api_secret <- ""
-  access_token <- ""
-  access_token_secret <- ""
+  #api_key <- ""
+  #api_secret <- ""
+  #access_token <- ""
+  #access_token_secret <- ""
   
+  api_key <- "T15fFdhwXfaBCKciTQNK49UnT"
+  api_secret <- "y3YykPuxcIVtEs4m3EKcKo6b1V3uGYkfIOFzjP6LxCKmpYnApt"
+  access_token <- "4701800378-dXKPM1DLcSczmt5bWOT9fXMkyhxozvqXMqCe7gv"
+  access_token_secret <- "63c4cYKPNYjJYeeCq4lJ7oTZasIWFV5ECRv9PQ9toCv7T"
   
   
   twitter_token <- create_token(
@@ -35,7 +40,7 @@ get_tweets.fun<-function(tag){
     ,access_token=access_token
     , access_secret = access_token_secret)
   
-  rstats_tweets <- search_tweets(q = "#rstatsdc",
+  rstats_tweets <- search_tweets(q = paste0('#',tag),
                                  n = 2000)
   
   temp<-gsub('\"',"", rstats_tweets$mentions_screen_name, fixed=TRUE)
@@ -70,7 +75,7 @@ media_id<-data.frame(media_id=unlist(rstats_tweets$media_url)
                      , screen_name=rstats_tweets$screen_name
                      , hashtags=   rstats_tweets$tags
                      , mentions=   rstats_tweets$mentions
-) %>% filter(date >= "2019-11-06" , !is.na(media_id))%>% group_by(date) %>% sample_n(min(25,n()))
+) %>% filter(date >= date_min , !is.na(media_id))%>% group_by(date) %>% sample_n(min(25,n()))
  
 
 # Gif! --------------------------------------------------------------------
