@@ -3,4 +3,5 @@
 .RData
 .Ruserdata
 R/credentials.R
+.DS_Store
 .Rproj
