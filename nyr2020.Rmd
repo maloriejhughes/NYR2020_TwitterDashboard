@@ -243,7 +243,7 @@ Row {data-height=600}
 # resetting par() to it's original state after modifying it for side-by-side wordclouds
 par(opar)
 
-x <- c("Handle", "Tweet Coxunt ", "Original Tweets ", "Retweets " )
+x <- c("Handle", "Tweet Count ", "Original Tweets ", "Retweets " )
 y <- sprintf("{point.%s}", c("screen_name","n", "original_tweets", "retweets"))
 user_count_tooltip <- tooltip_table(x, y)
 # if you get errors here, remove the quotes from both hcaes() arguments.  Then complain to Hadley.
