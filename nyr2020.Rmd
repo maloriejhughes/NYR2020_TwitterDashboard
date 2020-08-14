@@ -291,7 +291,14 @@ user_count$screen_name<-factor(user_count$screen_name, levels=unique(user_count$
   user_count<- user_count %>% arrange(desc(original_tweets))
 ```
 
+Row {data-height=10}
+-------------------------------------
 
+
+<div class="footer">
+  <p> Updated `r Sys.time()` |  maloriejhughes@gmail.com | @data_all_day  </p>
+</div>
+  
 
 
 Mash-up Metric Details
