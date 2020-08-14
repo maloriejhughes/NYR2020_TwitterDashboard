@@ -7,6 +7,7 @@ library(tidyverse)
 library(rtweet)
 library(raster)
 library(rgdal)
+library(lubridate)
 source('R/credentials.R')
 # Functions ---------------------------------------------------------------
 
@@ -27,18 +28,17 @@ get_tweets.fun<-function(tag){
   #access_token <- ""
   #access_token_secret <- ""
   
-  api_key <- "T15fFdhwXfaBCKciTQNK49UnT"
-  api_secret <- "y3YykPuxcIVtEs4m3EKcKo6b1V3uGYkfIOFzjP6LxCKmpYnApt"
-  access_token <- "4701800378-dXKPM1DLcSczmt5bWOT9fXMkyhxozvqXMqCe7gv"
-  access_token_secret <- "63c4cYKPNYjJYeeCq4lJ7oTZasIWFV5ECRv9PQ9toCv7T"
   
-  
+  api_key <- "Fg1Hj8iXy6DjfLU8rO2h1tW6y"
+  api_secret <- "W4bwfep1ELehFcH1LDODahnidRcJVbz8LZSDZidaOlyg9NW42q"
+  access_token <- "281326158-EE628YRKt5yOr0KpPEEBgDlGCg7eT6Q2eonsAM75"
   twitter_token <- create_token(
     
     consumer_key = api_key,
     consumer_secret =  api_secret
     ,access_token=access_token
-    , access_secret = access_token_secret)
+    , access_secret =  "1JJJ9cRYQwSS8Zk1cahgE94j5DWn8h00j0ibLKtzubmM8"
+  )
   
   rstats_tweets <- search_tweets(q = paste0('#',tag),
                                  n = 2000)
@@ -106,5 +106,5 @@ for(i in 1:nrow(media_id)){
 
 img %>% #image_join() %>% # joins image
   image_animate(fps=1) %>% # animates, can opt for number of loops
-  image_write("IMAGES/dcr2019_3.gif")
+  image_write("IMAGES/nyr2020.gif")
 
