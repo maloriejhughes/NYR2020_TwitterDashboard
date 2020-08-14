@@ -3,8 +3,8 @@
 .RData
 .Ruserdata
 R/credentials.R
-R/DS_Store
-IMAGES/DS_Store
-dashboard_source_folder/DS_Store
+R/.DS_Store
+IMAGES/.DS_Store
+dashboard_source_folder/.DS_Store
 .DS_Store
 .Rproj
