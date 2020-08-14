@@ -8,7 +8,7 @@ library(rtweet)
 library(raster)
 library(rgdal)
 library(lubridate)
-source('R/credentials.R')
+source('credentials.R')
 
 # Functions ---------------------------------------------------------------
 
