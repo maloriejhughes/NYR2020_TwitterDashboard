@@ -9,6 +9,7 @@ library(raster)
 library(rgdal)
 library(lubridate)
 source('R/credentials.R')
+
 # Functions ---------------------------------------------------------------
 
 tag='rstatsnyc'
@@ -29,18 +30,8 @@ get_tweets.fun<-function(tag){
   #access_token_secret <- ""
   
   
-  api_key <- "Fg1Hj8iXy6DjfLU8rO2h1tW6y"
-  api_secret <- "W4bwfep1ELehFcH1LDODahnidRcJVbz8LZSDZidaOlyg9NW42q"
-  access_token <- "281326158-EE628YRKt5yOr0KpPEEBgDlGCg7eT6Q2eonsAM75"
-  twitter_token <- create_token(
-    
-    consumer_key = api_key,
-    consumer_secret =  api_secret
-    ,access_token=access_token
-    , access_secret =  "1JJJ9cRYQwSS8Zk1cahgE94j5DWn8h00j0ibLKtzubmM8"
-  )
   
-  rstats_tweets <- search_tweets(q = paste0('#',tag),
+  rstats_tweets <- search_tweets(q =tag,# paste0('#',tag),
                                  n = 2000)
   
   temp<-gsub('\"',"", rstats_tweets$mentions_screen_name, fixed=TRUE)
