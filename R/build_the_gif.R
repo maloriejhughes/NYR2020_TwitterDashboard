@@ -8,7 +8,7 @@ library(rtweet)
 library(raster)
 library(rgdal)
 library(lubridate)
-source('credentials.R')
+source('/Users/malorh/Dropbox/GITHUB/NYR2020_TwitterDashboard/R/credentials.R')
 
 # Functions ---------------------------------------------------------------
 
@@ -97,5 +97,5 @@ for(i in 1:nrow(media_id)){
 
 img %>% #image_join() %>% # joins image
   image_animate(fps=1) %>% # animates, can opt for number of loops
-  image_write("IMAGES/nyr2020.gif")
+  image_write("/Users/malorh/Dropbox/GITHUB/NYR2020_TwitterDashboard/IMAGES/nyr2020.gif")
 
