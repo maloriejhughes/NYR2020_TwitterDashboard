@@ -326,7 +326,7 @@ $$:= I_{n_O>0}\times \frac{4RT + L}{\sqrt{F}+1} + \frac{3p + 2m + h}{.25n_O + n_
 
 $$:= \frac{3p + 2m + h }{I_{F\leq500}+I_{f>500}\sqrt{F-500}}$$
 
-where, 
+, where
 
 $RT$ : retweeted by others
 
