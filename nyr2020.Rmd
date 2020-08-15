@@ -307,7 +307,7 @@ Mash-up Metric Details
 
  
 
-$$:=  I_{original\_tweets>0} \times \frac{5*retweeted\_by\_others + 3*liked\_by\_others}{\ln(followers+1) + 1} + 
+$$:=  I_{original\_tweets>0} \times \frac{5*retweeted\_by\_others + liked\_by\_others}{\ln(followers+1) + 1} + 
 \frac{num\_photos+ num\_users\_mentions + num\_hashtags}{original\_tweets+1} $$
 
 
