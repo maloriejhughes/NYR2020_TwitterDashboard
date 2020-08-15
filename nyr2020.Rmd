@@ -95,17 +95,17 @@ Row
 
 ### Total Tweets {data-width=200}
 
-<center>
+
 ```{r}
 valueBox(nrow(rstats_tweets) , icon="fa-twitter"
 )
 
 ```
-</center>
+
 
 
 ### User Count {data-width=200}
-</br>
+
 
 ```{r}
 valueBox(length(unique(rstats_tweets$screen_name)) , icon="fa-user"
@@ -166,10 +166,10 @@ Row {data-height=400}
 -------------------------------------
 
 ### Shared on Twitter
-<center>
+
 
 ![](IMAGES/nyr2020.gif)
-</center>
+
 
 
 
@@ -182,7 +182,7 @@ nc_2<-ngram.fun(rstats_tweets,2)
 #nc_3<-ngram.fun(rstats_tweets,3)
 # side by side wordclouds
 opar <- par()   
-par(mfrow=c(1,2), mar=c(1, .5, 0, 0) ) 
+par(mfrow=c(1,2), mar=c(1, .5, 0, 0) )# margins: bottom, left, top,right 
 wordcloud(nc_1$ngrams,nc_1$freq,max.words=200,random.order = F,  colors=dcrPalette)
 wordcloud(nc_2$ngrams,nc_2$freq,max.words=200,random.order = F,  colors=dcrPalette)
 #wordcloud(nc_3$ngrams,nc_3$freq,max.words=100,random.order = F, colors=brewer.pal(8, "Dark2"))
@@ -219,7 +219,7 @@ hc_add_series_times_values(hour_count$hour ,hour_count$n, showInLegend=FALSE, na
    hc_xAxis( title=list(text="")) %>%
    hc_yAxis(title=list(text="Tweet Count") ) %>%
   # hc_tooltip(useHTML = TRUE,  pointFormat = hour_count_tooltip) %>% 
-   hc_title(text='DCR Tweets Per 1/4 Hour') %>% 
+   hc_title(text='DCR Tweets Per 15 Minutes') %>% 
   hc_colors(dcrPalette)
 
 ```
@@ -317,6 +317,7 @@ $$:= \frac{num\_photos+ num\_users\_mentions + num\_hashtags + original\_tweets+
          
 
 ```{r}
+# an ode to my first composite metric
 # `Mash-up Metric` = (4*retweeted_by_others + 2*liked_by_others + original_tweets + .5*retweets )/log(followers) 
   #        + (num_photos + num_users_mentions + num_hashtags)
     
@@ -327,8 +328,7 @@ $$:= \frac{num\_photos+ num\_users\_mentions + num\_hashtags + original\_tweets+
 ```{r}
 library(DT)
 
-user_all_words%>% #arrange(desc(`Mash-up Metric`)) %>%
-  #mutate(`Mash-up Metric`=round(log(`Mash-up Metric`),2))%>%
+user_all_words%>% 
   dplyr::select(screen_name, `Contribution & Engagement`
                 , `Dedicated Small Players`
          , original_tweets 
