@@ -13,14 +13,11 @@ exclude_screen_name_list=c("@rstatstweet"
 
 
 get_tweets.fun <- function( tag , max.tweets, twitter_token ){
-
-
- 
   seed.num <- 1234
   
   rstats_tweets <- search_tweets( q = tag
                                   , n = max.tweets)
-  
+  # clean mentions in a less than ideal way
   temp<-gsub('\"',"", rstats_tweets$mentions_screen_name, fixed=TRUE)
   temp<-gsub('c(',"", temp, fixed=TRUE)
   temp<-gsub(")","",temp)
@@ -28,6 +25,8 @@ get_tweets.fun <- function( tag , max.tweets, twitter_token ){
   temp<-gsub(","," @", temp, fixed=TRUE)
   temp<-paste0("@",temp)
   rstats_tweets$mentions<-temp
+  
+  # clean hashtags, again, less than ideal
   temp<-gsub('\"',"", rstats_tweets$hashtags, fixed=TRUE)
   temp<-gsub('c(',"", temp, fixed=TRUE)
   temp<-gsub(")","",temp)
@@ -35,6 +34,7 @@ get_tweets.fun <- function( tag , max.tweets, twitter_token ){
   temp<-gsub(","," #", temp, fixed=TRUE)
   temp<-paste0("#",temp)
   rstats_tweets$tags<-temp
+  
   rstats_tweets$screen_name<-paste0("@",rstats_tweets$screen_name)
   rstats_tweets$created_at <-with_tz( rstats_tweets$created_at, "America/New_York")
   return(rstats_tweets)
@@ -48,6 +48,7 @@ nwords.fun<-function(string, pseudo=F){
   )
   str_count(string, pattern)
 }
+
 
 # kindly ignore how stupid this function is. 
 ngram.fun<-function(comment_data,n){
@@ -86,7 +87,7 @@ ngram.fun<-function(comment_data,n){
 ##### SUCCESS METRICS
 
 prep_metrics_for_composite_score.fun<-function(rstats_tweets, exclude_screen_name_list){
-new_dat <- rstats_tweets
+new_dat <- rstats_tweets # I think I did this in case I wanted to use the orinal for something else? seems stupid.
 new_dat$text<- removeWords(new_dat$text, c(stopWords)) 
 
 user_all_words<- new_dat %>% filter(screen_name!="@rstatstweet" & screen_name!="@rstatsnyc" & screen_name!="@rstatsdc"
@@ -106,10 +107,12 @@ user_all_words<- new_dat %>% filter(screen_name!="@rstatstweet" & screen_name!="
             , num_hashtags= str_count(all_text,"#")                  # total tags made by X
             , favorites_per_follower = liked_by_others/followers
   ) %>%
-  mutate( `Contribution & Engagement` = round( ifelse(original_tweets>0,1,0)*(5*retweeted_by_others + 1*liked_by_others  )/(log(followers+1) + 1)
-                                    +  (num_photos+ num_users_mentions + num_hashtags)/(original_tweets+1)  )
-          , `Dedicated Small Players` = round( (num_photos+ num_users_mentions + num_hashtags + original_tweets+ retweets )/ifelse(followers<=500,1,  sqrt(followers-500) ) ) 
+  mutate( `Contribution & Engagement` = round( ifelse(original_tweets>0,1,0)*(4*retweeted_by_others + 1*liked_by_others  )/(sqrt(followers) + 1)
+                                    +  (3*num_photos+ 2*num_users_mentions + num_hashtags)/(.25*original_tweets+retweets+1)  )
+        
+            , `Dedicated Small Players` = round( (3*num_photos+ 2*num_users_mentions + num_hashtags  )/ifelse(followers<=500,1,  sqrt(followers-500) ) ) 
           ) %>%
   arrange(desc( `Contribution & Engagement`))
 return(user_all_words)
 }
+

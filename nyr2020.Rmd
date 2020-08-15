@@ -251,7 +251,7 @@ hchart(user_count[1:25,], "bar",hcaes("screen_name" ,"n")) %>%
    hc_xAxis(title=list(text="Twitter Handle"), labels=list(style=list(fontsize=14, color="slategrey")) ) %>%
    hc_yAxis(title=list(text="Tweet Count") ) %>%
    hc_tooltip(useHTML = TRUE, headerFormat = "", pointFormat = user_count_tooltip) %>% 
-   hc_title(text=paste0('DCR #',tag, ' Total Tweets')) %>% hc_size(height=600)%>% 
+   hc_title(text=paste0('NYR #',tag, ' Total Tweets')) %>% hc_size(height=600)%>% 
   hc_colors(dcrPalette[3])
 ```
 
@@ -284,7 +284,7 @@ user_count$screen_name<-factor(user_count$screen_name, levels=unique(user_count$
    hc_xAxis( title=list(text=""), labels=list(style=list(fontsize=14, color="slategrey")) , type="category") %>%
    hc_yAxis(title=list(text="Tweet Count") ) %>%
    hc_tooltip(useHTML = TRUE, headerFormat = "", pointFormat = user_count_tooltip) %>% 
-   hc_title(text=paste0('DCR #',tag, ' Original VS Retweet Count')) %>% hc_plotOptions(bar=list(stacking="normal")) %>% hc_size(height=600) %>% 
+   hc_title(text=paste0('NYR #',tag, ' Original VS Retweet Count')) %>% hc_plotOptions(bar=list(stacking="normal")) %>% hc_size(height=600) %>% 
   hc_colors(dcrPalette)
   #%>% hc_legend(align = "right", verticalAlign = "top", layout = "vertical") 
   
@@ -303,17 +303,47 @@ Row {data-height=10}
 
 Mash-up Metric Details
 =====================================
+
+
+
+
+
+
 <h3>  Contribution & Engagement  </h3> 
 
  
 
-$$:=  I_{original\_tweets>0} \times \frac{5*retweeted\_by\_others + liked\_by\_others}{\ln(followers+1) + 1} + 
-\frac{num\_photos+ num\_users\_mentions + num\_hashtags}{original\_tweets+1} $$
+
+
+$$:= I_{n_O>0}\times \frac{4RT + L}{\sqrt{F}+1} + \frac{3p + 2m + h}{.25n_O + n_{RT} + 1}$$
+
 
 
 
 <h3>Dedicated Small Players </h3> 
-$$:= \frac{num\_photos+ num\_users\_mentions + num\_hashtags + original\_tweets+ retweets} {I_{followers\leq500} +I_{followers>500}*\sqrt(followers - 500)} $$ 
+
+
+
+$$:= \frac{3p + 2m + h }{I_{F\leq500}+I_{f>500}\sqrt{F-500}}$$
+
+where, 
+
+$RT$ : retweeted by others
+
+$L$ : liked by others
+
+$F$ : followers
+
+$p$ : number of images/media/urls
+
+$m$ : number of users mentioned (@)
+
+$h$ : number of hashtags (#)
+
+$n_{RT}$ : number of retweets shared by you
+
+$n_O$ : number of original tweets
+
          
 
 ```{r}
