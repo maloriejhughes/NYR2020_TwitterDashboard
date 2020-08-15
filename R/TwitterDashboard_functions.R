@@ -106,7 +106,7 @@ user_all_words<- new_dat %>% filter(screen_name!="@rstatstweet" & screen_name!="
             , num_hashtags= str_count(all_text,"#")                  # total tags made by X
             , favorites_per_follower = liked_by_others/followers
   ) %>%
-  mutate( `Contribution & Engagement` = round( ifelse(original_tweets>0,1,0)*(5*retweeted_by_others + 3*liked_by_others  )/(log(followers+1) + 1)
+  mutate( `Contribution & Engagement` = round( ifelse(original_tweets>0,1,0)*(5*retweeted_by_others + 1*liked_by_others  )/(log(followers+1) + 1)
                                     +  (num_photos+ num_users_mentions + num_hashtags)/(original_tweets+1)  )
           , `Dedicated Small Players` = round( (num_photos+ num_users_mentions + num_hashtags + original_tweets+ retweets )/ifelse(followers<=500,1,  sqrt(followers-500) ) ) 
           ) %>%
